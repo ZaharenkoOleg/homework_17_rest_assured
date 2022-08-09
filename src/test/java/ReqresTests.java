@@ -1,10 +1,16 @@
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.Matchers.is;
 
-public class ReqresTests extends TestBase {
+public class ReqresTests {
+    @BeforeAll
+    public static void beforeAll(){
+        RestAssured.baseURI="https://reqres.in";
+    }
     @Test
     void RegistrationTest() {
         given()

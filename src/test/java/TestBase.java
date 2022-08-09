@@ -21,11 +21,12 @@ public class TestBase {
             email = credentialsConfig.email(),
             password = credentialsConfig.password();
 
+
     @BeforeAll
     static void setUp() {
         Configuration.baseUrl = baseUrl;
-        RestAssured.baseURI = baseUrl;
         Configuration.remote = webDriverConfig.getRemoteUrl();
+        RestAssured.baseURI = baseUrl;
         Configuration.browser = webDriverConfig.getBrowser();
         Configuration.browserVersion = webDriverConfig.getBrowserVersion();
 

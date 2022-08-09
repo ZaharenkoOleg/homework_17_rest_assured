@@ -2,11 +2,9 @@ package config;
 
 import org.aeonbits.owner.Config;
 
-@Config.Sources("classpath:properties/${host}.properties")
+@Config.Sources("classpath:${pc}.properties")
 
 public interface WebDriverConfig extends Config {
-    @Key("remoteUrl")
-    String getRemoteUrl();
 
     @Key("baseUrl")
     @DefaultValue("http://demowebshop.tricentis.com")
@@ -19,6 +17,9 @@ public interface WebDriverConfig extends Config {
     @Key("browserVersion")
     @DefaultValue("100.0")
     String getBrowserVersion();
+
+    @Key("remoteUrl")
+    String getRemoteUrl();
 
 }
 

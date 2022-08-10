@@ -17,9 +17,9 @@ public class DemowebshopTests extends TestBase {
     RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
-    @Tag("demowebshop1")
-    @DisplayName("User registration UI Page Object tests")
-    void userRegistrationTest() {
+    @Tag("DemoWebShop")
+    @DisplayName("User registration tests")
+    void RegistrationTest() {
         registrationPage.openRegistrationForm()
                 .setGender(testData.gender)
                 .setFirstName(testData.firstName)
@@ -33,9 +33,9 @@ public class DemowebshopTests extends TestBase {
 
 
     @Test
-    @Tag("demowebshop4")
-    @DisplayName("Edit user account API+UI lambda step tests")
-    void updateUserTest() {
+    @Tag("DemoWebShop")
+    @DisplayName("Edit user account tests")
+    void updateFistNameTest() {
         String authorizationCookieValue = given()
                 .filter(withCustomTemplates())
                 .contentType("application/x-www-form-urlencoded; charset=UTF-8")

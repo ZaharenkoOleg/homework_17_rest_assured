@@ -64,7 +64,7 @@ public class ReqresTests {
 
     @Test
     void singleUserWithSpecksModelTest() {
-      given()
+        given()
                 .spec(requestSpecSingleUser)
                 .when()
                 .get()

@@ -1,67 +1,36 @@
 plugins {
     id 'java-library'
-    id 'io.qameta.allure' version '2.9.6'
+    id "io.freefair.lombok" version "6.0.0-m2"
 }
+
+group 'guru.qa'
+version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
-def allureVersion = "2.18.1",
-    selenideVersion = "6.6.6",
+def junitVersion = '5.9.0',
     restAssuredVersion = "5.1.1",
-    junitVersion = "5.8.2",
-    slf4jVersion = "1.7.32",
-    ownerVersion = "1.0.12",
-    assertJVersion = "3.23.1",
-    jacksonVersion = "2.7.9.5"
+    slf4jVersion = '1.7.36',
+    fakerVersion = '1.0.2',
+    assertjVersion = '3.23.1',
+    jacksonVersion = '2.13.3'
 
-
-allure {
-    report {
-        version.set(allureVersion)
-    }
-    adapter {
-        aspectjWeaver.set(true)
-        frameworks {
-            junit5 {
-                adapterVersion.set(allureVersion)
-            }
+dependencies
+        {
+            testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion",
+                    "io.rest-assured:rest-assured:$restAssuredVersion",
+                    "com.github.javafaker:javafaker:$fakerVersion",
+                    "org.assertj:assertj-core:$assertjVersion",
+                    "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+            testRuntimeOnly("org.slf4j:slf4j-simple:$slf4jVersion")
         }
-    }
-}
-
-dependencies {
-    testImplementation(
-            "com.codeborne:selenide:$selenideVersion",
-            "io.qameta.allure:allure-selenide:$allureVersion",
-            "io.rest-assured:rest-assured:$restAssuredVersion",
-            "io.qameta.allure:allure-rest-assured:$allureVersion",
-            "org.junit.jupiter:junit-jupiter:$junitVersion",
-            "org.slf4j:slf4j-simple:$slf4jVersion",
-            "org.aeonbits.owner:owner:$ownerVersion",
-            "org.assertj:assertj-core:$assertJVersion",
-            "com.github.javafaker:javafaker:1.0.2",
-            "org.projectlombok:lombok:1.18.24",
-            "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion",
-            "com.googlecode.json-simple:json-simple:1.1.1",
-            "com.github.fge:json-schema-validator:2.2.6"
-
-    )
-}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-tasks.withType(Test) {
-    systemProperties(System.getProperties())
+test {
     useJUnitPlatform()
-
-    testLogging {
-        lifecycle {
-            events "started", "skipped", "failed", "standard_error", "standard_out"
-            exceptionFormat "short"
-        }
-    }
 }

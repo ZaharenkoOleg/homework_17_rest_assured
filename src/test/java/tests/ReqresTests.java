@@ -3,6 +3,7 @@ package tests;
 import io.restassured.RestAssured;
 import models.Lombok.RegistrationBodyLombokModel;
 import models.Lombok.RegistrationResponseLombokModel;
+import models.Lombok.SingleUserBody;
 import models.pojo.LoginBodyPojoModel;
 import models.pojo.LoginResponsePojoModel;
 import org.junit.jupiter.api.BeforeAll;
@@ -10,7 +11,6 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
-import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static specs.DeleteUserSpec.requestSpecDelete;
@@ -63,14 +63,15 @@ public class ReqresTests {
     }
 
     @Test
-    void singleUserWithSpecksModelTest() {
-        given()
+    void singleUserWithLombokModel() {
+        SingleUserBody response = given()
                 .spec(requestSpecSingleUser)
                 .when()
                 .get()
                 .then()
                 .spec(responseSpecSingleUser)
-                .body("data.first_name", is("Janet"));
+                .extract().as(SingleUserBody.class);
+        assertEquals(2, response.getResponse().getId());
     }
 
     @Test
